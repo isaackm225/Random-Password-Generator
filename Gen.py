@@ -1,23 +1,53 @@
-import secret
+import random
+import secrets
 import string
 from UI import ui
 
-def Gen(s:bool, d:bool, l:int)->string:
+def Gen(param: tuple)->string:
   """Returns a complicated string based on the param"""
   
   chars={
-  low: string.ascii_lowercase,
-  up: string.ascii_uppercase,
-  d:string.ascii_digits,
-  s:string.ascii_symboles
+  "low": "",
+  "up": "",
+  "digits":None,
+  "symbol":None
   }
+  pwd=""
+
+  s,d,l=param
+  if s is True:
+    chars["symbole"]=""
+  if d is True:
+    chars["digits"]=""
+  for i in range(l):
+    chars["low"].join(secret.choice(string.ascii_lowercase))
+    chars["up"].join(secret.choice(string.ascii_uppercase))
+    try:  
+      chars["digits"].join(secret.choice(string.digits))
+      chars["symbol"].join(secret.choice(string.punctuation))
+    except:
+      pass
+
+  for string in chars.values():
+    if string != None:
+      passwd+=string
+
+  return passwd[:l]
+
+
+  while True:
+    if passwd[:l].contains(""):
+      return passwd 
+    else:
+      random.shuffle(passwd)
+
+
+
+
+Gen(ui())
+
+
   
-  symb=""
-  digit=""
-  up=""
-  low=""
-  
-  for i in 
 
 """unpack param
 initialize the pool tuple
@@ -30,9 +60,3 @@ for i in range(round(l/len(pool_tuple))):
 		item.join(secrets.choice(dict[item]))"""
 
 
-
-if __name__==__main__:
-  
-  s,d,l=ui()
-
-p = " ".join()
