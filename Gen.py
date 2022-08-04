@@ -1,62 +1,52 @@
-import random
 import secrets
 import string
 from UI import ui
 
 def Gen(param: tuple)->string:
   """Returns a complicated string based on the param"""
+  symb,digits,size=param
+  pword=""
+  tmp=""
+  chars = []
+  cond=tuple()
+
+  if symb is True:
+    chars.append(string.punctuation)
   
-  chars={
-  "low": "",
-  "up": "",
-  "digits":None,
-  "symbol":None
-  }
-  pwd=""
+  if digits is True:
+    chars.append(string.digits)
 
-  s,d,l=param
-  if s is True:
-    chars["symbole"]=""
-  if d is True:
-    chars["digits"]=""
-  for i in range(l):
-    chars["low"].join(secret.choice(string.ascii_lowercase))
-    chars["up"].join(secret.choice(string.ascii_uppercase))
-    try:  
-      chars["digits"].join(secret.choice(string.digits))
-      chars["symbol"].join(secret.choice(string.punctuation))
-    except:
-      pass
-
-  for string in chars.values():
-    if string != None:
-      passwd+=string
-
-  return passwd[:l]
+  chars.append(string.ascii_uppercase)
+  chars.append(string.ascii_lowercase)
 
 
-  while True:
-    if passwd[:l].contains(""):
-      return passwd 
+  for i in range(size*2):
+    for char in chars:
+      tmp +=str(secrets.choice(char) )
+
+  while not any(cond):
+    pword=""
+    for i in range(size):
+      pword+=secrets.choice(tmp) 
+  
+      #verification
+    if symb and digits:
+      if any(c.isdigit() for c in pword) and any(c in string.punctuation for c in pword) and any(c.isupper() for c in pword) and any(c.islower() for c in pword):
+        return pword
+
+    elif symb: 
+      if any(c in string.punctuation for c in pword) and any(c.isupper() for c in pword) and any(c.islower() for c in pword):
+        return pword
+    
+    elif digits:
+      if any(c.isdigit for c in pword) and any(c.isupper for c in pword) and any(c.islower for c in pword):
+        return pword
     else:
-      random.shuffle(passwd)
-
-
-
-
-Gen(ui())
-
-
+      pass
   
 
-"""unpack param
-initialize the pool tuple
-add param if they =True
-initialize dict
-set default(var->const)
-
-for i in range(round(l/len(pool_tuple))):
-	for item in pool:
-		item.join(secrets.choice(dict[item]))"""
-
-
+if __name__=="__main__":
+  while True:
+    print()
+    print("Here is your password: {}".format(Gen(ui())))
+    print()
