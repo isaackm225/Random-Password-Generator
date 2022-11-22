@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <img src="simple-logo.jpg" alt="simple-logo" width="200">
+  <img src="simple-logo.png" alt="simple-logo" width="200">
   <br>
   Random Password Generator
   <br>
